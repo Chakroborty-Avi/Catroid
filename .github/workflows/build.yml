@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        api-level: [33]
+        api-level: [34]
 
     steps:
       - name: Check out code
@@ -69,7 +69,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           emulator-options: -no-window -wipe-data -gpu swiftshader_indirect -no-snapshot-save -no-snapshot -accel on -noaudio -no-boot-anim -camera-back emulated -camera-front emulated -selinux permissive -memory 2048 -skin 480x800
-          emulator-build: 11237101 # 33.1.24
+          #emulator-build: 11237101 # 33.1.24
           disable-animations: true
           arch: x86_64
           target: default
