@@ -71,7 +71,7 @@ jobs:
           disable-animations: true
           script: |
             adb shell wm density 240
-            ./gradlew connectedCheck --stacktrace
+            ./gradlew connectedCatroidDebugAndroidTest --stacktrace
 
   build_and_analysis:
     runs-on: ubuntu-latest
