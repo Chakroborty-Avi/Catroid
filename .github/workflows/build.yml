@@ -71,7 +71,7 @@ jobs:
           disable-animations: true
           script: |
             adb shell wm density 240
-            ./gradlew connectedCatroidDebugAndroidTest --stacktrace
+            ./gradlew disableAnimations -PenableCoverage createCatroidDebugAndroidTestCoverageReport -Pandroid.testInstrumentationRunnerArguments.class=org.catrobat.catroid.testsuites.LocalHeadlessTestSuite
 
   build_and_analysis:
     runs-on: ubuntu-latest
