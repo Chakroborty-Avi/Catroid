@@ -7,7 +7,7 @@ class DockerParameters {
     def args = '--device /dev/kvm:/dev/kvm ' +
             '-m=12G '
     def label = 'LimitedEmulator'
-    def image = 'catrobat/catrobat-android:api33'
+    def image = 'catrobat/catrobat-android:test'
 }
 
 def d = new DockerParameters()
@@ -115,6 +115,10 @@ pipeline {
     environment {
         ANDROID_VERSION = 33
         ADB_INSTALL_TIMEOUT = 60
+        REPO = 'Catrobat/Catroid'
+        TOKEN = credentials('001159e0-8b13-44fc-a41e-6717b4500acd')
+        ARTIFACT_PATH = '**/*.apk'
+        VERSION = "${env.BUILD_NUMBER}"
     }
 
     parameters {
@@ -169,6 +173,7 @@ pipeline {
         booleanParam name: 'RTL_TESTS', defaultValue: true, description: 'Enables RTL Tests'
         booleanParam name: 'OUTGOING_NETWORK_CALL_TESTS', defaultValue: false, description: 'Enables' +
                 'start Outgoing web tests'
+		booleanParam name: 'RELEASE_APK', defaultValue: true, description: 'Enables release creation and apk upload'
     }
 
     options {
@@ -223,7 +228,7 @@ pipeline {
                                 }
                             }
                         }
-
+                        
                         stage('Build with Paintroid') {
                             when {
                                 expression {
@@ -369,6 +374,27 @@ pipeline {
                                 always {
                                     killRunningEmulator()
                                     postEmulator('rtltests')
+                                }
+                            }
+                        }
+
+                        stage('Release to GitHub') {
+                            when {
+                                expression { params.RELEASE_APK == true }
+                            }
+                            steps {
+                                script {
+                                    def apkFile = findFiles(glob: '**/*.apk')[0].path
+                                    sh 'chmod +x ./automationScripts/create_release.sh'
+                                    sh """
+                                    #!/bin/bash
+                                    if [ -s "$apkFile" ]; then
+                                        ./automationScripts/create_release.sh "$REPO" "$TOKEN" "$apkFile" "$VERSION"
+                                    else
+                                        echo "Artifact not found or empty at path: $apkFile"
+                                        exit 1
+                                    fi
+                                    """
                                 }
                             }
                         }
