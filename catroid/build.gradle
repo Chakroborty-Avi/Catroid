@@ -273,7 +273,7 @@ android {
         lintConfig file('config/lint.xml')
 
         htmlReport true
-        htmlOutput file('build/reports/lint.html')
+        htmlOutput file('build/reports/html/lint.html')
 
         xmlReport true
         xmlOutput file('build/reports/lint.xml')

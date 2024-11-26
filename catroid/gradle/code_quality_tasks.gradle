@@ -54,7 +54,9 @@ tasks.register('checkstyle', Checkstyle) {
 tasks.withType(Checkstyle) {
     reports {
         xml.required = false
-        html.required = false
+
+        html.required = true
+        html.outputLocation = file("build/reports/html/checkstyle.html")
 
         sarif.required = true
         sarif.outputLocation = file("build/reports/checkstyle.sarif")
@@ -95,7 +97,7 @@ tasks.register('pmd', Pmd) {
 
     reports {
         html.required = true
-        html.outputLocation = file("build/reports/pmd.html")
+        html.outputLocation = file("build/reports/html/pmd.html")
         // not supported yet by gradle pmd, see https://github.com/gradle/gradle/pull/22979
         //sarif.required = true
         //sarif.outputLocation = file("build/reports/pmd.sarif")
@@ -118,7 +120,7 @@ tasks.named("detekt").configure {
         txt.required.set(false)
 
         html.required.set(true)
-        html.outputLocation.set(file("build/reports/detekt.html"))
+        html.outputLocation.set(file("build/reports/html/detekt.html"))
 
         sarif.required.set(true)
         sarif.outputLocation.set(file("build/reports/detekt.sarif"))
