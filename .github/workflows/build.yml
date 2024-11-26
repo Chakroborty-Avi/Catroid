@@ -42,7 +42,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Unit Tests
-        run: ./gradlew -PenableCoverage jacocoTestCatroidDebugUnitTestReport --full-stacktrace"
+        run: ./gradlew -PenableCoverage jacocoTestCatroidDebugUnitTestReport --full-stacktrace
         continue-on-error: true
 
       - name: Upload Unit Test Reports
