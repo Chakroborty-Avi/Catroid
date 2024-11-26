@@ -32,7 +32,7 @@ dependencies {
     pmd 'net.sourceforge.pmd:pmd-core:6.55.0'
     pmd 'net.sourceforge.pmd:pmd-java:6.55.0'
 
-    checkstyle 'com.puppycrawl.tools:checkstyle:10.12.1'
+    checkstyle 'com.puppycrawl.tools:checkstyle:10.12.4'
 
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7"
 }
@@ -49,12 +49,53 @@ tasks.register('checkstyle', Checkstyle) {
     // needed for console output of warnings/errors
     showViolations true
     ignoreFailures true
+}
 
+tasks.withType(Checkstyle) {
     reports {
+        xml.required = false
+        html.required = false
+
         sarif.required = true
         sarif.outputLocation = file("build/reports/checkstyle.sarif")
     }
 }
+
+tasks.register('checkStyleSarifHack') {
+    def sarifFile = file("build/reports/checkstyle.sarif") // Path to the SARIF file
+    def keyword = "catroid/catroid"
+
+    doLast {
+        if (!sarifFile.exists()) {
+            println("SARIF file not found: ${sarifFile.absolutePath}")
+            return
+        }
+
+        def sarifContent = sarifFile.text
+
+        // Update URIs in the SARIF content
+        def updatedContent = sarifContent.replaceAll(/"uri":\s*"(.*?)"/) { match, uri ->
+            try {
+                def index = uri.toLowerCase().indexOf(keyword.toLowerCase())
+                if (index != -1) {
+                    def relativePath = uri.substring(index)
+                    return "\"uri\": \"${relativePath}\""
+                } else {
+                    return match // Leave unchanged if keyword not found
+                }
+            } catch (Exception e) {
+                // If something goes wrong, return the original match
+                return match
+            }
+        }
+
+        // Write the updated content back to the SARIF file
+        sarifFile.text = updatedContent
+        println("Fixed paths in SARIF file: ${sarifFile.absolutePath}")
+    }
+}
+
+tasks.checkstyle.finalizedBy('checkStyleSarifHack')
 
 tasks.register('pmd', Pmd) {
     ruleSetFiles = files('config/pmd.xml')
