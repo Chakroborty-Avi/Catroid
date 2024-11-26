@@ -62,8 +62,8 @@ tasks.withType(Checkstyle) {
 }
 
 tasks.register('checkStyleSarifHack') {
-    def sarifFile = file("build/reports/checkstyle.sarif") // Path to the SARIF file
-    def keyword = "catroid/catroid"
+    def sarifFile = file("build/reports/checkstyle.sarif")
+    def parentDir = rootProject.projectDir.absolutePath
 
     doLast {
         if (!sarifFile.exists()) {
@@ -73,27 +73,13 @@ tasks.register('checkStyleSarifHack') {
 
         def sarifContent = sarifFile.text
 
-        // Update URIs in the SARIF content
-        def updatedContent = sarifContent.replaceAll(/"uri":\s*"(.*?)"/) { match, uri ->
-            try {
-                def index = uri.toLowerCase().indexOf(keyword.toLowerCase())
-                if (index != -1) {
-                    def relativePath = uri.substring(index)
-                    return "\"uri\": \"${relativePath}\""
-                } else {
-                    return match // Leave unchanged if keyword not found
-                }
-            } catch (Exception e) {
-                // If something goes wrong, return the original match
-                return match
-            }
-        }
+        def updatedContent = sarifContent.replace(parentDir + File.separatorChar, '')
 
-        // Write the updated content back to the SARIF file
         sarifFile.text = updatedContent
         println("Fixed paths in SARIF file: ${sarifFile.absolutePath}")
     }
 }
+
 
 tasks.checkstyle.finalizedBy('checkStyleSarifHack')
 
