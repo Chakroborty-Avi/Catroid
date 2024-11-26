@@ -46,8 +46,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.internal.verification.VerificationModeFactory.atLeast;
+import static org.powermock.api.mockito.PowerMockito.verifyZeroInteractions;
 
 @RunWith(Parameterized.class)
 public class JobHandlerIgnoreMessageInSpecificStateTest {

@@ -38,8 +38,8 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.verifyZeroInteractions;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VisualPlacementTouchListenerTest {

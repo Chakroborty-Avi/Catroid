@@ -32,8 +32,8 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.verifyZeroInteractions;
 
 public class JobHandlerJobWrapperTest {
 	private Client.ConvertCallback convertCallbackMock;
