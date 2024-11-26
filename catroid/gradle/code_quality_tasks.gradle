@@ -52,7 +52,7 @@ tasks.register('checkstyle', Checkstyle) {
 
     reports {
         sarif.required = true
-        sarif.outputLocation = file("build/reports/checkstyle.xml")
+        sarif.outputLocation = file("build/reports/checkstyle.sarif")
     }
 }
 
@@ -67,8 +67,8 @@ tasks.register('pmd', Pmd) {
     ignoreFailures true
 
     reports {
-        xml.required = true
-        xml.outputLocation = file("build/reports/pmd.xml")
+        html.required = true
+        html.outputLocation = file("build/reports/pmd.html")
         // not supported yet by gradle pmd, see https://github.com/gradle/gradle/pull/22979
         //sarif.required = true
         //sarif.outputLocation = file("build/reports/pmd.sarif")
@@ -81,4 +81,9 @@ detekt {
     input = files("src")
     ignoreFailures true
     basePath = rootProject.projectDir.absolutePath
+
+    reports {
+        sarif.required = true
+        sarif.outputLocation = file("build/reports/detekt.sarif")
+    }
 }

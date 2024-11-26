@@ -117,7 +117,7 @@ jobs:
         with:
           name: pmd-report
           path: |
-            catroid/build/reports/pmd.xml
+            catroid/build/reports/pmd.html
       #######################################################################################
       - name: Checkstyle
         run: ./gradlew checkstyle
@@ -125,7 +125,7 @@ jobs:
       - name: Upload Checkstyle Report
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: catroid/build/reports/checkstyle/checkstyle.xml
+          sarif_file: catroid/build/reports/checkstyle.sarif
           category: "Checkstyle"
       #######################################################################################
       - name: Detekt
@@ -135,7 +135,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         if: success() || failure()
         with:
-          sarif_file: catroid/build/reports/detekt/detekt.sarif
+          sarif_file: catroid/build/reports/detekt.sarif
           category: "Detekt"
       #######################################################################################
       - name: Lint
