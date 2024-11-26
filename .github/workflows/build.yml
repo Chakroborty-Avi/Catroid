@@ -1,4 +1,4 @@
-name: Catroid CI
+name: Catroid Pipeline
 
 on:
   push:
@@ -23,6 +23,40 @@ on:
         default: false
 
 jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    env:
+      WEB_TEST_URL: ${{ inputs.WEB_TEST_URL != '' && format('-PwebTestUrl=''{0}''', inputs.WEB_TEST_URL) || '' }}
+      ALL_FLAVOURS_PARAMETERS: ${{ inputs.BUILD_ALL_FLAVOURS && 'assembleCreateAtSchoolDebug assembleLunaAndCatDebug assemblePhiroDebug assembleEmbroideryDesignerDebug assemblePocketCodeBetaDebug assembleMindstormsDebug' || '' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK
+        run: ./gradlew ${{ env.WEB_TEST_URL }} -Pindependent='#${{ github.run_number }} ${{ github.ref_name }}' assembleCatroidDebug ${{ env.ALL_FLAVOURS_PARAMETERS }}
+  # TODO: Check where to upload the APKs as GitHub Storage is an issue
+  #
+  #      - name: Rename APKs
+  #        run: |
+  #          for file in $(find . -name "*.apk"); do
+  #            mv "$file" "$(dirname "$file")/${{ github.ref_name }}-${{ github.run_number }}-$(basename "$file")"
+  #          done
+  #
+  #      - name: Archive APKs
+  #        uses: actions/upload-artifact@v4
+  #        with:
+  #          name: apk-artifacts
+  #          path: "**/*.apk"
+
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-latest
@@ -53,34 +87,39 @@ jobs:
             catroid/build/reports/jacoco/jacocoTestCatroidDebugUnitTestReport.xml
             catroid/build/reports/tests/testDebugUnitTest
 
+  code-analysis:
+    name: Code analysis
+    runs-on: ubuntu-latest
+    env:
+      WEB_TEST_URL: ${{ inputs.WEB_TEST_URL != '' && format('-PwebTestUrl=''{0}''', inputs.WEB_TEST_URL) || '' }}
+      ALL_FLAVOURS_PARAMETERS: ${{ inputs.BUILD_ALL_FLAVOURS && 'assembleCreateAtSchoolDebug assembleLunaAndCatDebug assemblePhiroDebug assembleEmbroideryDesignerDebug assemblePocketCodeBetaDebug assembleMindstormsDebug' || '' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v4
+
       - name: Static Analysis
         continue-on-error: true
         run: ./gradlew pmd checkstyle lintCatroidDebug detekt
 
-      - name: Upload Static Analysis Reports
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Upload Report
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          name: static-analysis-reports
-          path: |
-            catroid/build/reports/lint*.xml
-            catroid/build/reports/checkstyle.xml
-            catroid/build/reports/pmd.xml
-            catroid/build/reports/detekt/detekt.xml
-
-      - name: Build APK
-        run: ./gradlew ${{ env.WEB_TEST_URL }} -Pindependent='#${{ github.run_number }} ${{ github.ref_name }}' assembleCatroidDebug ${{ env.ALL_FLAVOURS_PARAMETERS }}
-#
-# TODO: Check where to upload the APKs as GitHub Storage is an issue
-#
-#      - name: Rename APKs
-#        run: |
-#          for file in $(find . -name "*.apk"); do
-#            mv "$file" "$(dirname "$file")/${{ github.ref_name }}-${{ github.run_number }}-$(basename "$file")"
-#          done
-#
-#      - name: Archive APKs
+          sarif_file: catroid/build/reports
+#      - name: Upload Static Analysis Reports
+#        if: always()
 #        uses: actions/upload-artifact@v4
 #        with:
-#          name: apk-artifacts
-#          path: "**/*.apk"
+#          name: static-analysis-reports
+#          path: |
+#            catroid/build/reports/lint*.xml
+#            catroid/build/reports/checkstyle.xml
+#            catroid/build/reports/pmd.xml
+#            catroid/build/reports/detekt/detekt.xml
