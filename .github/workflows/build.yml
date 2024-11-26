@@ -16,29 +16,19 @@ on:
         required: false
         type: string
         default: ""
-      ANDROID_VERSION:
-        description: "The Android version to use for the build"
-        required: false
-        type: string
-        default: "34"
       BUILD_ALL_FLAVOURS:
         description: "When selected all flavours are built and archived as artifacts that can be installed alongside other versions of the same APKs"
         required: false
         type: boolean
         default: false
-      DISABLE_UNIT_TESTS:
-        description: "Disables Unit Tests"
-        required: false
-        type: boolean
-        default: false
 
 jobs:
-  instrumentation-tests:
-    name: Instrumentation tests
+  unit-tests:
+    name: Unit tests
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        api-level: [34]
+    env:
+      WEB_TEST_URL: ${{ inputs.WEB_TEST_URL != '' && format('-PwebTestUrl=''{0}''', inputs.WEB_TEST_URL) || '' }}
+      ALL_FLAVOURS_PARAMETERS: ${{ inputs.BUILD_ALL_FLAVOURS && 'assembleCreateAtSchoolDebug assembleLunaAndCatDebug assemblePhiroDebug assembleEmbroideryDesignerDebug assemblePocketCodeBetaDebug assembleMindstormsDebug' || '' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -51,55 +41,11 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Pre-Build
-        run: gradle compileCatroidDebugSources compileCatroidDebugAndroidTestSources
-
-      - name: Enable KVM group perms
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
-
-      - name: Instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          target: aosp_atd
-          profile: Nexus One
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          script: |
-            adb shell wm density 240
-            ./gradlew disableAnimations -PenableCoverage createCatroidDebugAndroidTestCoverageReport -Pandroid.testInstrumentationRunnerArguments.class=org.catrobat.catroid.testsuites.LocalHeadlessTestSuite
-
-  build_and_analysis:
-    runs-on: ubuntu-latest
-    container: mingc/android-build-box:1.28.0
-
-    env:
-      ANDROID_VERSION: ${{ inputs.ANDROID_VERSION }}
-      WEB_TEST_URL: ${{ inputs.WEB_TEST_URL != '' && format('-PwebTestUrl=''{0}''', inputs.WEB_TEST_URL) || '' }}
-      ALL_FLAVOURS_PARAMETERS: ${{ inputs.BUILD_ALL_FLAVOURS && 'assembleCreateAtSchoolDebug assembleLunaAndCatDebug assemblePhiroDebug assembleEmbroideryDesignerDebug assemblePocketCodeBetaDebug assembleMindstormsDebug' || '' }}
-      DEBUG_UNIT_TESTS: ${{ inputs.UNIT_TEST_DEBUG && '-i' || '' }}
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Prepare Java
-        run: |
-          . ~/.bash_profile
-          jenv global 21
-          java -version
-
-      - name: Run Unit Tests
-        if: ${{ ! inputs.DISABLE_UNIT_TESTS }}
-        run: bash ./gradlew ${{ env.DEBUG_UNIT_TESTS }} -PenableCoverage jacocoTestCatroidDebugUnitTestReport --full-stacktrace || echo "Unit tests failed"
+      - name: Unit Tests
+        run: ./gradlew -PenableCoverage jacocoTestCatroidDebugUnitTestReport --full-stacktrace"
         continue-on-error: true
 
       - name: Upload Unit Test Reports
-        if: ${{ ! inputs.DISABLE_UNIT_TESTS }}
         uses: actions/upload-artifact@v4
         with:
           name: unit-test-reports
@@ -109,7 +55,7 @@ jobs:
 
       - name: Static Analysis
         continue-on-error: true
-        run: bash ./gradlew pmd checkstyle lintCatroidDebug detekt
+        run: ./gradlew pmd checkstyle lintCatroidDebug detekt
 
       - name: Upload Static Analysis Reports
         if: always()
@@ -123,16 +69,18 @@ jobs:
             catroid/build/reports/detekt/detekt.xml
 
       - name: Build APK
-        run: bash ./gradlew ${{ env.WEB_TEST_URL }} -Pindependent='#${{ github.run_number }} ${{ github.ref_name }}' assembleCatroidDebug ${{ env.ALL_FLAVOURS_PARAMETERS }}
-
-      - name: Rename APKs
-        run: |
-          for file in $(find . -name "*.apk"); do
-            mv "$file" "$(dirname "$file")/${{ github.ref_name }}-${{ github.run_number }}-$(basename "$file")"
-          done
-
-      - name: Archive APKs
-        uses: actions/upload-artifact@v4
-        with:
-          name: apk-artifacts
-          path: "**/*.apk"
+        run: ./gradlew ${{ env.WEB_TEST_URL }} -Pindependent='#${{ github.run_number }} ${{ github.ref_name }}' assembleCatroidDebug ${{ env.ALL_FLAVOURS_PARAMETERS }}
+#
+# TODO: Check where to upload the APKs as GitHub Storage is an issue
+#
+#      - name: Rename APKs
+#        run: |
+#          for file in $(find . -name "*.apk"); do
+#            mv "$file" "$(dirname "$file")/${{ github.ref_name }}-${{ github.run_number }}-$(basename "$file")"
+#          done
+#
+#      - name: Archive APKs
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: apk-artifacts
+#          path: "**/*.apk"
