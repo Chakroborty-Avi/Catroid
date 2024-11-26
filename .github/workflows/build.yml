@@ -125,17 +125,12 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         if: ${{ matrix.tool.sarif && (success() || failure()) }}
         with:
-          sarif_file: catroid/build/reports/${{ matrix.tool }}.sarif
-          category: ${{ matrix.tool }}
+          sarif_file: catroid/build/reports/${{ matrix.tool.name }}.sarif
+          category: ${{ matrix.tool.name }}
 
-  collect-reports:
-    name: Collect and Upload Reports
-    runs-on: ubuntu-latest
-    needs: code-analysis
-    steps:
-      - name: Upload Static Analysis Reports
+      - name: Upload ${{ matrix.tool.name }} HTML Report
         uses: actions/upload-artifact@v4
         with:
-          name: static-analysis-reports
+          name: ${{ matrix.tool.name }}-report
           path: |
-            catroid/build/reports/html
+            catroid/build/reports/html/${{ matrix.tool.name }}.html
