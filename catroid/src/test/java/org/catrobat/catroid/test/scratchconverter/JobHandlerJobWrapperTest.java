@@ -32,8 +32,8 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.verifyZeroInteractions;
 
 public class JobHandlerJobWrapperTest {
 	private Client.ConvertCallback convertCallbackMock;
@@ -52,6 +52,6 @@ public class JobHandlerJobWrapperTest {
 		long expectedJobID = 42;
 		when(jobMock.getJobID()).thenReturn(expectedJobID);
 		assertEquals(expectedJobID, jobHandler.getJobID());
-		verifyZeroInteractions(convertCallbackMock);
+		verifyNoInteractions(convertCallbackMock);
 	}
 }

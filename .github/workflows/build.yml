@@ -85,7 +85,7 @@ jobs:
         if: success() || failure()
         with:
           name: Unit Tests
-          path: catroid/build/test-results/testCatroidDebugUnitTest/*.xml
+          path: catroid/build/test-results/**/*TEST*.xml
           reporter: java-junit
 
       - name: Upload Unit Test Reports
