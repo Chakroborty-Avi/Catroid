@@ -23,10 +23,10 @@
 
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 check.dependsOn 'checkstyle'
 check.dependsOn 'pmd'
-check.dependsOn 'detekt'
 
 dependencies {
     pmd 'net.sourceforge.pmd:pmd-core:6.55.0'
@@ -80,10 +80,19 @@ detekt {
     config = files("config/detekt.yml")
     input = files("src")
     ignoreFailures true
-    basePath = rootProject.projectDir.absolutePath
+    basePath = projectDir.absolutePath
+}
 
+tasks.named("detekt").configure {
     reports {
-        sarif.required = true
-        sarif.outputLocation = file("build/reports/detekt.sarif")
+        xml.required.set(false)
+        md.required.set(false)
+        txt.required.set(false)
+
+        html.required.set(true)
+        html.outputLocation.set(file("build/reports/detekt.html"))
+
+        sarif.required.set(true)
+        sarif.outputLocation.set(file("build/reports/detekt.sarif"))
     }
 }

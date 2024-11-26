@@ -114,6 +114,7 @@ jobs:
 
       - name: Upload Static Analysis Reports
         uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
           name: pmd-report
           path: |
@@ -124,12 +125,21 @@ jobs:
 
       - name: Upload Checkstyle Report
         uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
         with:
           sarif_file: catroid/build/reports/checkstyle.sarif
           category: "Checkstyle"
       #######################################################################################
       - name: Detekt
         run: ./gradlew detekt
+
+      - name: Upload Detekt Report as HTML
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: detekt-report
+          path: |
+            catroid/build/reports/detekt.html
 
       - name: Upload Detekt Report
         uses: github/codeql-action/upload-sarif@v3
@@ -143,6 +153,7 @@ jobs:
 
       - name: Upload Lint Report
         uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
         with:
           sarif_file: catroid/build/reports/lint/lintCatroidDebug.xml
           category: "Lint"
