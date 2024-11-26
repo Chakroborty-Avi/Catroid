@@ -34,10 +34,10 @@ dependencies {
 
     checkstyle 'com.puppycrawl.tools:checkstyle:10.12.1'
 
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.0"
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.7"
 }
 
-task checkstyle(type: Checkstyle) {
+tasks.register('checkstyle', Checkstyle) {
     configDirectory = file(".")
     configFile = file("./config/checkstyle.xml")
     source '.'
@@ -51,12 +51,12 @@ task checkstyle(type: Checkstyle) {
     ignoreFailures true
 
     reports {
-        xml.required = true
-        xml.outputLocation = file("build/reports/checkstyle.xml")
+        sarif.required = true
+        sarif.outputLocation = file("build/reports/checkstyle.xml")
     }
 }
 
-task pmd(type: Pmd) {
+tasks.register('pmd', Pmd) {
     ruleSetFiles = files('config/pmd.xml')
     ruleSets = []
 
@@ -69,12 +69,16 @@ task pmd(type: Pmd) {
     reports {
         xml.required = true
         xml.outputLocation = file("build/reports/pmd.xml")
+        // not supported yet by gradle pmd, see https://github.com/gradle/gradle/pull/22979
+        //sarif.required = true
+        //sarif.outputLocation = file("build/reports/pmd.sarif")
     }
 }
 
 detekt {
-    toolVersion = "1.23.0"
+    toolVersion = "1.23.7"
     config = files("config/detekt.yml")
     input = files("src")
     ignoreFailures true
+    basePath = rootProject.projectDir.absolutePath
 }

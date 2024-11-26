@@ -110,17 +110,16 @@ jobs:
 
       #######################################################################################
       - name: PMD
-        continue-on-error: true
         run: ./gradlew pmd
 
-      - name: Upload PMD Report
-        uses: github/codeql-action/upload-sarif@v3
+      - name: Upload Static Analysis Reports
+        uses: actions/upload-artifact@v4
         with:
-          sarif_file: catroid/build/reports/pmd/pmd.xml
-          category: "PMD"
+          name: pmd-report
+          path: |
+            catroid/build/reports/pmd.xml
       #######################################################################################
       - name: Checkstyle
-        continue-on-error: true
         run: ./gradlew checkstyle
 
       - name: Upload Checkstyle Report
@@ -130,17 +129,16 @@ jobs:
           category: "Checkstyle"
       #######################################################################################
       - name: Detekt
-        continue-on-error: true
         run: ./gradlew detekt
 
       - name: Upload Detekt Report
         uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
         with:
-          sarif_file: catroid/build/reports/detekt/detekt.xml
+          sarif_file: catroid/build/reports/detekt/detekt.sarif
           category: "Detekt"
       #######################################################################################
       - name: Lint
-        continue-on-error: true
         run: ./gradlew lintCatroidDebug
 
       - name: Upload Lint Report
