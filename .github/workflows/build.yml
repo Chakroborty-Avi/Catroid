@@ -95,6 +95,9 @@ jobs:
     env:
       WEB_TEST_URL: ${{ inputs.WEB_TEST_URL != '' && format('-PwebTestUrl=''{0}''', inputs.WEB_TEST_URL) || '' }}
       ALL_FLAVOURS_PARAMETERS: ${{ inputs.BUILD_ALL_FLAVOURS && 'assembleCreateAtSchoolDebug assembleLunaAndCatDebug assemblePhiroDebug assembleEmbroideryDesignerDebug assemblePocketCodeBetaDebug assembleMindstormsDebug' || '' }}
+    permissions:
+      security-events: write
+      packages: read
 
     steps:
       - uses: actions/checkout@v4
