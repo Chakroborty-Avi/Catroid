@@ -50,9 +50,9 @@ def runTestsWithEmulator(String testClass) {
 
 def postEmulator(String coverageNameAndLogcatPrefix) {
     archiveArtifacts "${coverageNameAndLogcatPrefix}_emulator.log"
-    zip zipFile: "${coverageNameAndLogcatPrefix}_logcat.zip", dir: "catroid/build/outputs/androidTest-results/connected/flavors/", archive: true
-    def jacocoReportDir = 'catroid/build/reports/coverage/androidTest/catroid/debug/connected'
-    if (fileExists('catroid/build/reports/coverage/androidTest/catroid/debug/connected/report.xml')) {
+    zip zipFile: "${coverageNameAndLogcatPrefix}_logcat.zip", dir: "./build/outputs/androidTest-results/connected/flavors/", archive: true
+    def jacocoReportDir = './build/reports/coverage/androidTest/catroid/debug/connected'
+    if (fileExists('./build/reports/coverage/androidTest/catroid/debug/connected/report.xml')) {
         junitAndCoverage jacocoReportDir, 'report.xml', coverageNameAndLogcatPrefix
     }
 }
