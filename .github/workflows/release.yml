@@ -1,0 +1,45 @@
+name: Catroid Release Pipeline
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+  workflow_dispatch:
+    inputs:
+      WEB_TEST_URL:
+        description: "When set, all the archived APKs will point to this Catrobat web server, useful for testing web changes. E.g https://web-test.catrob.at"
+        required: false
+        type: string
+        default: ""
+      BUILD_ALL_FLAVOURS:
+        description: "When selected all flavours are built and archived as artifacts that can be installed alongside other versions of the same APKs"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      WEB_TEST_URL: ${{ inputs.WEB_TEST_URL != '' && format('-PwebTestUrl=''{0}''', inputs.WEB_TEST_URL) || '' }}
+      ALL_FLAVOURS_PARAMETERS: ${{ inputs.BUILD_ALL_FLAVOURS && 'assembleCreateAtSchoolDebug assembleLunaAndCatDebug assemblePhiroDebug assembleEmbroideryDesignerDebug assemblePocketCodeBetaDebug assembleMindstormsDebug' || '' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build APK
+        run: ./gradlew ${{ env.WEB_TEST_URL }} -Pindependent='#${{ github.run_number }} ${{ github.ref_name }}' assembleCatroidDebug ${{ env.ALL_FLAVOURS_PARAMETERS }}
