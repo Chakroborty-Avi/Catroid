@@ -54,7 +54,7 @@ def postEmulator(String coverageNameAndLogcatPrefix) {
     def zipDir = "catroid/build/outputs/androidTest-results/connected/flavors/"
     if (!fileExists(zipDir)) {
         echo "Directory '${zipDir}' does not exist. Creating it now..."
-        new File(zipDir).mkdirs()
+        sh "mkdir -p ${zipDir}"
     }
 
     zip zipFile: "${coverageNameAndLogcatPrefix}_logcat.zip", dir: zipDir, archive: true
