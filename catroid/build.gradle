@@ -497,7 +497,9 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-web:$espressoVersion"
 
     testImplementation 'junit:junit:4.13.2'
+
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
     testImplementation 'org.hamcrest:hamcrest-library:1.3'
 
     testImplementation 'org.powermock:powermock:1.6.6'
