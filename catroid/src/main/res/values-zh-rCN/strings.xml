@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">Các chương trình</string>
     <string formatted="false" name="main_menu_help">Trợ giúp</string>
     <string formatted="false" name="main_menu_web">Catrobat社区</string>
-    <string formatted="false" name="main_menu_upload">Tải lên chương trình</string>
     <string formatted="false" name="main_menu_rate_app">给我们评分！</string>
     <string formatted="false" name="main_menu_terms_of_use">使用与服务条例</string>
     <string formatted="false" name="main_menu_privacy_policy">Chính sách bảo mật</string>
@@ -611,13 +610,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">没有网络</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">上传程序</string>
-    <string formatted="false" name="upload_description">描述：</string>
-    <string formatted="false" name="upload_notes_and_credits">说明和版权信息:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">您是如何创建这个项目的？是否使用了其他人的想法、脚本或艺术作品？您可以在此对他们表示感谢。</string>
-    <string formatted="false" name="upload_tag_dialog_title">请选择最多三个类别</string>
-    <string formatted="false" name="upload_tags_maximum_error">无法选择3个以上的标签。</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">保存项目到外部存储</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1203,7 +1195,6 @@ dash(-), 下划线 (_), 和 句号(.).</string>
 设备的地理位置传感器。 并且为了从本地内存导入和导出项目，应用程序
 需要读写访问它。 您总是可以通过您的设备的设置更改权限。</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">在上传程序的时候发生了一个错误。</string>
     <string formatted="false" name="error_project_download">下载程序时发生了一个错误。</string>
     <string formatted="false" name="error_project_already_in_queue">"项目 %s 已在队列中。"</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">\"您的下载无法开始，似乎我们的服务器有问题。</string>

@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">प्रोग्राम्स</string>
     <string formatted="false" name="main_menu_help">मदद</string>
     <string formatted="false" name="main_menu_web">Catrobat समुदाय</string>
-    <string formatted="false" name="main_menu_upload">प्रोजेक्ट अपलोड करें</string>
     <string formatted="false" name="main_menu_rate_app">हमें दर दे!</string>
     <string formatted="false" name="main_menu_terms_of_use">उपयोग और सेवाओं की शर्तें</string>
     <string formatted="false" name="main_menu_privacy_policy">गोपनीयता नीति</string>
@@ -663,13 +662,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">कोई नेटवर्क नहीं</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">प्रोजेक्ट अपलोड करें</string>
-    <string formatted="false" name="upload_description">विवरण:</string>
-    <string formatted="false" name="upload_notes_and_credits">नोट्स और क्रेडिट:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">आपने यह प्रोजेक्ट कैसे बनाया? क्या आपने अन्य लोगों से विचारों, लिपियों या कलाकृति का उपयोग किया था? उन्हें यहाँ धन्यवाद।</string>
-    <string formatted="false" name="upload_tag_dialog_title">कृपया तीन श्रेणियां चुनें</string>
-    <string formatted="false" name="upload_tags_maximum_error">3 से अधिक टैग का चयन संभव नहीं है।</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">बाहरी संग्रहण के लिए प्रोजेक्ट सहेजें</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1262,7 +1254,6 @@
 डिवाइस की जियोलोकेशन सेंसर, और स्थानीय मेमोरी और एप्लिकेशन से परियोजनाओं को आयात और निर्यात करने के लिए
 इसे पढ़ने और लिखने की आवश्यकता है। आप हमेशा अपने डिवाइस की सेटिंग के माध्यम से अनुमतियां बदल सकते हैं।</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">प्रोजेक्ट अपलोड करते समय कुछ गड़बड़ हो गई।</string>
     <string formatted="false" name="error_project_download">प्रोजेक्ट डाउनलोड करते समय कुछ गड़बड़ हो गई।</string>
     <string formatted="false" name="error_project_already_in_queue">"प्रोजेक्ट %s  पहले से ही कतार में है।"</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">"आपका डाउनलोड नहीं हो सका

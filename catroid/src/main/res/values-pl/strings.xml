@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">Projekty na urządzeniu</string>
     <string formatted="false" name="main_menu_help">Pomoc</string>
     <string formatted="false" name="main_menu_web">Społeczność Catrobat</string>
-    <string formatted="false" name="main_menu_upload">Wyślij projekt</string>
     <string formatted="false" name="main_menu_rate_app">Oceń nas!</string>
     <string formatted="false" name="main_menu_terms_of_use">Warunki użytkowania i korzystania z usługi</string>
     <string formatted="false" name="main_menu_privacy_policy">Polityka prywatności</string>
@@ -717,13 +716,6 @@ Jeśli jednak nie chcesz tego robić, możesz skorzystać z naszych bezpłatnych
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">Brak sieci</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">Wyślij projekt</string>
-    <string formatted="false" name="upload_description">Opis:</string>
-    <string formatted="false" name="upload_notes_and_credits">Uwagi i podziękowania:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">Jak utworzyłeś ten projekt? Czy używałeś pomysłów, skryptów lub grafiki od innych osób? Podziękuj im tutaj.</string>
-    <string formatted="false" name="upload_tag_dialog_title">Proszę wybrać maksymalnie trzy kategorie</string>
-    <string formatted="false" name="upload_tags_maximum_error">Wybór więcej niż 3 tagów nie jest możliwy.</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">Eksportuj projekt</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1325,7 +1317,6 @@ Jeśli jednak nie chcesz tego robić, możesz skorzystać z naszych bezpłatnych
     <!-- Runtime permission messages -->
     <string formatted="false" name="runtime_permission_general">Ta aplikacja potrzebuje wymaganych uprawnień do prawidłowego działania. Np. bloczek aparatu wymaga dostępu do aparatu urządzenia, element formuły „lokalizacja” wymaga dostępu do czujnika geolokalizacji urządzenia, a aby importować i eksportować projekty z i do pamięci lokalnej, aplikacja musi mieć dostęp do odczytu i zapisu. Zawsze możesz zmienić uprawnienia za pomocą ustawień urządzenia.</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">Podczas wysyłania programu wystąpił błąd.</string>
     <string formatted="false" name="error_project_download">Podczas pobierania programu wystąpił błąd.</string>
     <string formatted="false" name="error_project_already_in_queue">"Projekt %s jest już w kolejce."</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">"Twoje pobieranie nie może zostać rozpoczęte

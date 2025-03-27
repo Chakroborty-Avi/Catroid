@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">Projetos</string>
     <string formatted="false" name="main_menu_help">Ajuda</string>
     <string formatted="false" name="main_menu_web">Comunidade Catrobat</string>
-    <string formatted="false" name="main_menu_upload">Fazer upload do programa</string>
     <string formatted="false" name="main_menu_rate_app">Avalie-nos!</string>
     <string formatted="false" name="main_menu_terms_of_use">Termos de Uso e Serviço</string>
     <string formatted="false" name="main_menu_privacy_policy">Política de Privacidade</string>
@@ -658,13 +657,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">Sem conexão com a internet</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">Fazer upload do programa</string>
-    <string formatted="false" name="upload_description">Descrição:</string>
-    <string formatted="false" name="upload_notes_and_credits">Notas e créditos:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">Como você criou este projeto? Você usou ideias, scripts ou artes de outras pessoas? Agradeça elas aqui.</string>
-    <string formatted="false" name="upload_tag_dialog_title">Por favor, escolha até três categorias</string>
-    <string formatted="false" name="upload_tags_maximum_error">Não é possível selecionar mais de 3 tags.</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">Salvar projeto no armazenamento externo</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1259,7 +1251,6 @@ precisa acessar a câmera do dispositivo, o elemento de fórmula \"location\" pr
 dispositivo, e para importar e exportar projetos de e para a memória local, o aplicativo
 precisa de acesso de leitura e escrita a ele. Você sempre pode alterar as permissões nas configurações do seu dispositivo.</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">Algo deu errado ao enviar o projeto.</string>
     <string formatted="false" name="error_project_download">Algo deu errado durante o download do projeto.</string>
     <string formatted="false" name="error_project_already_in_queue">"Projeto %s já está na fila."</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">Não foi possível

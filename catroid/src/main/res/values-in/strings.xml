@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">Program</string>
     <string formatted="false" name="main_menu_help">Membantu</string>
     <string formatted="false" name="main_menu_web">Komunitas Catrobat</string>
-    <string formatted="false" name="main_menu_upload">Unggah proyek</string>
     <string formatted="false" name="main_menu_rate_app">Nilai kami!</string>
     <string formatted="false" name="main_menu_terms_of_use">Syarat Penggunaan dan Layanan</string>
     <string formatted="false" name="main_menu_privacy_policy">Kebijakan privasi</string>
@@ -626,13 +625,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">Tidak ada jaringan</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">Mengunggah Program</string>
-    <string formatted="false" name="upload_description">Keterangan:</string>
-    <string formatted="false" name="upload_notes_and_credits">Catatan dan kredit:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">Bagaimana Anda membuat proyek ini? Apakah Anda menggunakan ide, skrip, atau karya seni dari orang lain? Berterimakasihlah di sini.</string>
-    <string formatted="false" name="upload_tag_dialog_title">Pilih hingga tiga kategori</string>
-    <string formatted="false" name="upload_tags_maximum_error">Memilih lebih dari 3 tag tidak dimungkinkan.</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">Simpan proyek ke penyimpanan eksternal</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1219,7 +1211,6 @@ Batu bata kamera memerlukan akses ke kamera perangkat, elemen rumus \"lokasi\" m
 sensor geolokasi perangkat, dan untuk mengimpor dan mengekspor proyek dari dan ke memori lokal, aplikasi
 membutuhkan akses baca dan tulis untuk itu. Anda selalu dapat mengubah izin melalui pengaturan perangkat Anda.</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">Terjadi kesalahan pada saat memuat program.</string>
     <string formatted="false" name="error_project_download">Terjadi kesalahan saat mengunduh program.</string>
     <string formatted="false" name="error_project_already_in_queue">"Proyek %s sudah dalam antrian."</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">"Unduhan Anda tidak bisa

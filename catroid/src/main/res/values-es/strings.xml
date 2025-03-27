@@ -91,7 +91,6 @@
     <string formatted="false" name="main_menu_programs">Proyectos</string>
     <string formatted="false" name="main_menu_help">Ayuda</string>
     <string formatted="false" name="main_menu_web">Comunidad Catrobat</string>
-    <string formatted="false" name="main_menu_upload">Cargar programa</string>
     <string formatted="false" name="main_menu_rate_app">Valóranos!</string>
     <string formatted="false" name="main_menu_terms_of_use">Términos de uso y servicios</string>
     <string formatted="false" name="main_menu_privacy_policy">Política de privacidad</string>
@@ -658,13 +657,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">No hay red</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">Cargar programa</string>
-    <string formatted="false" name="upload_description">Descripción:</string>
-    <string formatted="false" name="upload_notes_and_credits">Notas y créditos:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">¿Cómo ha creado este proyecto? ¿Ha utilizado ideas, guiones o ilustraciones de otras personas? Dales las gracias aquí.</string>
-    <string formatted="false" name="upload_tag_dialog_title">Elija hasta tres categorías</string>
-    <string formatted="false" name="upload_tags_maximum_error">No es posible seleccionar más de 3 etiquetas.</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">Guardar proyecto en almacenamiento externo</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1257,7 +1249,6 @@
 necesita acceso a la cámara del dispositivo, el elemento de fórmula \"ubicación\" necesita acceso al sensor de geolocalización del dispositivo, y con el fin de importar y exportar proyectos desde y hacia la memoria local, la aplicación
 necesita acceso de lectura y escritura a ella. Siempre puedes cambiar los permisos a través de la configuración de tu dispositivo.</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">Un error ha ocurrido durante el proceso de carga</string>
     <string formatted="false" name="error_project_download">Un error ha ocurrido durante el proceso de descarga.</string>
     <string formatted="false" name="error_project_already_in_queue">"El proyecto %s ya está en cola."</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">"Tu descarga no pudo ser

@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">โปรแกรม</string>
     <string formatted="false" name="main_menu_help">ช่วย</string>
     <string formatted="false" name="main_menu_web">ชุมชน Catrobat</string>
-    <string formatted="false" name="main_menu_upload">อัพโหลดโปรเจกต์</string>
     <string formatted="false" name="main_menu_rate_app">ให้คะแนนเรา</string>
     <string formatted="false" name="main_menu_terms_of_use">ข้อกำหนดการใช้งานและบริการ</string>
     <string formatted="false" name="main_menu_privacy_policy">นโยบายความเป็นส่วนตัว</string>
@@ -615,13 +614,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">ไม่มีเครือข่าย</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">อัพโหลดโปรแกรม</string>
-    <string formatted="false" name="upload_description">คำอธิบาย:</string>
-    <string formatted="false" name="upload_notes_and_credits">หมายเหตุและเครดิต:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">คุณสร้างโครงการนี้ได้อย่างไร คุณใช้ไอเดียสคริปต์หรืออาร์ตเวิร์คจากคนอื่นหรือไม่? ขอบคุณพวกเขาที่นี่</string>
-    <string formatted="false" name="upload_tag_dialog_title">โปรดเลือกได้สูงสุดสามหมวด</string>
-    <string formatted="false" name="upload_tags_maximum_error">ไม่สามารถเลือกมากกว่า 3 แท็กได้</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">บันทึกโครงการไปยังที่จัดเก็บข้อมูลภายนอก</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1200,7 +1192,6 @@
     <!-- Runtime permission messages -->
     <string formatted="false" name="runtime_permission_general">แอปนี้ต้องการสิทธิ์ที่ร้องขอเพื่อให้สามารถทำงานได้ ตัวอย่างเช่นคำสั่งของกล้องต้องการการเข้าถึงกล้องของอุปกรณ์องค์ประกอบของสูตร \"ตำแหน่ง\" ต้องการการเข้าถึงเซ็นเซอร์ตำแหน่งทางภูมิศาสตร์ของอุปกรณ์และเพื่อนำเข้าและส่งออกโครงการจากและไปยังหน่วยความจำท้องถิ่นแอปนี้จำเป็นต้องมีสิทธิ์อ่านและเขียน. คุณสามารถเปลี่ยนการอนุญาตผ่านการตั้งค่าอุปกรณ์ของคุณ</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">ข้อผิดพลาดเกิดขึ้นขณะอัปโหลดโปรแกรม</string>
     <string formatted="false" name="error_project_download">เกิดข้อผิดพลาดในขณะดาวน์โหลดโปรแกรม</string>
     <string formatted="false" name="error_project_already_in_queue">"โครงการ %s อยู่ในคิวแล้ว"</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">"การดาวน์โหลดของคุณไม่สามารถเริ่มต้นดูเหมือนว่ามีปัญหากับเซิร์ฟเวอร์ของเรา"</string>

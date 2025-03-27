@@ -91,7 +91,6 @@
     <string formatted="false" name="main_menu_programs">Projekte am Gerät</string>
     <string formatted="false" name="main_menu_help">Hilfe</string>
     <string formatted="false" name="main_menu_web">Catrobat Community</string>
-    <string formatted="false" name="main_menu_upload">Projekt hochladen</string>
     <string formatted="false" name="main_menu_rate_app">Bewerte uns!</string>
     <string formatted="false" name="main_menu_terms_of_use">Nutzungsbedingungen und Leistungen</string>
     <string formatted="false" name="main_menu_privacy_policy">Datenschutz-Vereinbarung</string>
@@ -658,13 +657,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">Keine Netzwerkverbindung</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">Projekt hochladen</string>
-    <string formatted="false" name="upload_description">Beschreibung:</string>
-    <string formatted="false" name="upload_notes_and_credits">Notizen und Credits:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">Wie hast du dieses Projekt erstellt? Hast du Ideen, Skripte oder Kunstwerke von anderen Leuten verwendet? Danke ihnen hier.</string>
-    <string formatted="false" name="upload_tag_dialog_title">Bitte wähle bis zu drei Kategorien</string>
-    <string formatted="false" name="upload_tags_maximum_error">Das Auswählen von mehr als 3 Tags ist nicht möglich.</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">Projekt im externen Speicher speichern</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1245,7 +1237,6 @@
     <!-- Runtime permission messages -->
     <string formatted="false" name="runtime_permission_general">Diese App benötigt die angeforderten Berechtigungen, um ordnungsgemäß zu funktionieren. Beispielsweise benötigt der Kamera Baustein Zugriff auf die Kamera des Geräts, das Formelelement \"Standort\" benötigt Zugriff auf den Geolocation-Sensor des Geräts. Um Projekte aus und in den lokalen Speicher zu importieren und zu exportieren, benötigt die App Lese- und Schreibzugriff auf diesen. Du kannst Berechtigungen jederzeit über die Einstellungen deines Geräts ändern.</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">Beim Hochladen des Projekts ist ein Fehler aufgetreten.</string>
     <string formatted="false" name="error_project_download">Beim Herunterladen des Projekts ist ein Fehler aufgetreten.</string>
     <string formatted="false" name="error_project_already_in_queue">"Projekt %s bereits in Warteschlange."</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">Der Download konnte nicht gestartet werden, es scheint als gäbe es ein Problem mit unserem Server.</string>

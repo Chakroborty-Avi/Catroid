@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">Проєкти на пристрої</string>
     <string formatted="false" name="main_menu_help">Довідка</string>
     <string formatted="false" name="main_menu_web">Спільнота Catrobat</string>
-    <string formatted="false" name="main_menu_upload">Вивантажити проєкт</string>
     <string formatted="false" name="main_menu_rate_app">Оцініть нас!</string>
     <string formatted="false" name="main_menu_terms_of_use">Умови використання та послуги</string>
     <string formatted="false" name="main_menu_privacy_policy">Політика конфіденційності</string>
@@ -743,13 +742,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">Немає мережі</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">Вивантажити проєкт</string>
-    <string formatted="false" name="upload_description">Опис:</string>
-    <string formatted="false" name="upload_notes_and_credits">Примітки та автори:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">Як ви створили цей проєкт? Чи використовували ідеї, скрипти чи витвори інших людей? Скажіть їм спасибі тут.</string>
-    <string formatted="false" name="upload_tag_dialog_title">Будь ласка, виберіть до трьох категорій</string>
-    <string formatted="false" name="upload_tags_maximum_error">Вибрати понад 3 міток неможливо.</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">Експортувати проєкт</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1354,7 +1346,6 @@
     <!-- Runtime permission messages -->
     <string formatted="false" name="runtime_permission_general">Ця програма потребує запитаних дозволів для належного функціонування. Наприклад, цеглина камери потребує доступу до камери пристрою, елемент формули «розташування» потребує доступу до датчика геолокації пристрою, а для імпорту та експорту проєктів з та до локальної пам\'яті додаток потребує доступу до нього для читання та запису. Ви завжди можете змінити дозволи в налаштуваннях пристрою.</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">Щось пішло не так під час вивантаження проєкту.</string>
     <string formatted="false" name="error_project_download">Щось пішло не так під час завантаження проєкту.</string>
     <string formatted="false" name="error_project_already_in_queue">"Проєкт %s уже в черзі."</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">\"Ваше завантаження не може бути

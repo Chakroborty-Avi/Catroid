@@ -92,7 +92,6 @@
     <string formatted="false" name="main_menu_programs">Проекты на устройстве</string>
     <string formatted="false" name="main_menu_help">Помощь</string>
     <string formatted="false" name="main_menu_web">Сообщество Catrobat</string>
-    <string formatted="false" name="main_menu_upload">Выложить проект</string>
     <string formatted="false" name="main_menu_rate_app">Оцените нас!</string>
     <string formatted="false" name="main_menu_terms_of_use">Условия пользования и обслуживания</string>
     <string formatted="false" name="main_menu_privacy_policy">Политика конфиденциальности</string>
@@ -742,13 +741,6 @@
     <!--  -->
     <!-- NetworkAlertDialog -->
     <string formatted="false" name="error_no_network_title">Отсутствует подключение к интернету</string>
-    <!-- UploadProjectDialog -->
-    <string formatted="false" name="upload_project_dialog_title">Выложить проект</string>
-    <string formatted="false" name="upload_description">Описание:</string>
-    <string formatted="false" name="upload_notes_and_credits">Примечания и авторы:</string>
-    <string formatted="false" name="upload_notes_and_credits_explanation">Как вы создали этот проект? Вы использовали идеи, скрипты или работы от других людей? Поблагодарите их здесь.</string>
-    <string formatted="false" name="upload_tag_dialog_title">Пожалуйста, выберите до трех категорий</string>
-    <string formatted="false" name="upload_tags_maximum_error">Выбор более 3 категорий невозможен.</string>
     <!-- Save Project to External Storage -->
     <string formatted="false" name="save_to_external_storage_button">Экспортировать проект</string>
     <string formatted="false" name="notification_save_project_to_external_storage_title_pending">" "</string>
@@ -1355,7 +1347,6 @@
     <string formatted="false" name="runtime_permission_general">Это приложение нуждается в запрашиваемых разрешениях для правильного функционирования.
 Например, блок камеры нуждается в доступе к камере устройства, а \"местоположение\" из редактора формул нуждается в доступе к GPS устройства, также для того, чтобы импортировать или экспортировать проекты с, и на устройство, приложению нужен доступ к внешнему хранилищу. Вы всегда можете поменять разрешения через настройки своего устройства.</string>
     <!-- Error messages -->
-    <string formatted="false" name="error_project_upload">Что-то пошло не так во время выкладывания проекта.</string>
     <string formatted="false" name="error_project_download">Что-то пошло не так при скачивании проекта.</string>
     <string formatted="false" name="error_project_already_in_queue">"Проект %s уже в очереди."</string>
     <string formatted="false" name="error_could_not_decode_project_name_from_url">"Ваша загрузка не может быть запущена,
