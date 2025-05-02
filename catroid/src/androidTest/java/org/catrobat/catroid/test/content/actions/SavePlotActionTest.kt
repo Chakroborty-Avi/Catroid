@@ -25,12 +25,10 @@ package org.catrobat.catroid.test.content.actions
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import junit.framework.Assert
 import org.catrobat.catroid.ProjectManager
 import org.catrobat.catroid.common.Constants
-import org.catrobat.catroid.content.ActionFactory
 import org.catrobat.catroid.content.Project
 import org.catrobat.catroid.content.Sprite
 import org.catrobat.catroid.content.actions.SavePlotAction

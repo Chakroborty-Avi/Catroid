@@ -835,7 +835,6 @@
     <string formatted="false" name="show_password">Show password</string>
     <string formatted="false" name="sign_in_error">Something went wrong during sign in.</string>
     <string formatted="false" name="error_google_plus_sign_in">Google sign-in error. Status: %s</string>
-    <string formatted="false" name="error_session_expired">Session expired, please log in.</string>
     <string formatted="false" name="error_register_empty_username">Empty username</string>
     <string formatted="false" name="error_register_username_as_email">Email address cannot be used as username</string>
     <string formatted="false" name="error_register_invalid_username">Username should only contain letters (a–z), numbers (0–9),
@@ -1424,7 +1423,6 @@
     <string formatted="false" name="notification_download_pending">Download in progress</string>
     <string formatted="false" name="notification_download_finished">Download successful</string>
     <string formatted="false" name="notification_title_open">"Open"</string>
-    <string formatted="false" name="size_of_project">Size:</string>
     <!--  -->
 
     <!-- Runtime permission messages -->
@@ -1445,10 +1443,6 @@ needs read and write access to it. You can always change permissions through you
     <string formatted="false" name="error_internet_connection">An unknown error occurred. Check your Internet connection.</string>
     <string formatted="false" name="error_project_compatibility">The project is not compatible with this version of the app.</string>
     <string formatted="false" name="error_outdated_version">This app version is outdated. Update now?</string>
-    <string formatted="false" name="error_upload_project_with_default_name">You cannot upload a project with the name \"%s\".
-        Please rename the project.</string>
-    <string formatted="false" name="error_upload_default_project">You cannot upload an unmodified example project. Please
-        change something and try again.</string>
     <string formatted="false" name="error_adding_brick">Something went wrong while adding this brick.</string>
     <string formatted="false" name="error_copying_brick">Something went wrong while copying this brick.</string>
     <string formatted="false" name="error_rename_incompatible_project">Renaming an incompatible project is not possible.</string>
@@ -2205,24 +2199,6 @@ needs read and write access to it. You can always change permissions through you
     <string formatted="false" name="deletion_alert_title">Delete?</string>
     <string formatted="false" name="deletion_alert_text">Deleting a variable or list that is still in use can cause
         errors. You can\'t undo this!</string>
-
-    <!-- Upload progress dialog -->
-    <string formatted="false" name="progress_upload_dialog_message">Your project gets uploaded to the app\’s sharing site where others
-        can use and download it. You can also download your project as a standalone app.</string>
-    <string formatted="false" name="progress_upload_dialog_failed">Upload failed. Please check your internet connection and try
-        again!</string>
-    <string formatted="false" name="progress_upload_dialog_show_program">Show project</string>
-    <!--  -->
-
-    <!-- unchanged upload dialog -->
-    <string formatted="false" name="unchanged_upload_warning">The project you are trying to upload already exists on
-        the community platform in exactly the same form. Please change your project, ideally by
-        enhancing it, before uploading your remixed project.</string>
-    <string formatted="false" name="unchanged_upload_info">Please consider adding some kind words towards the original
-        author in the Credits section on the community site or in the project options. Please note
-        that the user will get a notification after your successful upload.</string>
-    <string formatted="false" name="unchanged_upload_url">To learn more about remixes, please visit %1s.</string>
-    <!-- -->
 
     <!-- Snackbar hints -->
     <string formatted="false" name="got_it">Got it</string>
