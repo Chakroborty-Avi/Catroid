@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - "develop"
+      - "DEVOPS-837" # for testing
   pull_request:
     branches:
       - "**"
-      - "DEVOPS-837" # for testing
   schedule:
     - cron: "0 0 * * *" # Daily at midnight
   workflow_dispatch:
