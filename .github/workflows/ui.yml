@@ -216,15 +216,22 @@ jobs:
             REPORT_FILE="junit_reports/session_${SESSION_ID}.xml"
 
             echo "➡️  Downloading report for session: $SESSION_ID"
-            curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" -X GET "$REPORT_URL" -o "$REPORT_FILE"
+            HTTP_RESPONSE=$(curl -s -w "%{http_code}" -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" -X GET "$REPORT_URL" -o "$REPORT_FILE")
 
-            if grep -q "<failure>" "$REPORT_FILE"; then
-              echo "❌ Test failures detected in session $SESSION_ID"
-              FAILED_COUNT=$((FAILED_COUNT + 1))
+            if [[ "$HTTP_RESPONSE" == "200" ]]; then
+              if grep -q "<failure>" "$REPORT_FILE"; then
+                echo "❌ Test failures detected in session $SESSION_ID"
+                FAILED_COUNT=$((FAILED_COUNT + 1))
+              else
+                echo "✅ No failures in session $SESSION_ID"
+              fi
+            elif [[ "$HTTP_RESPONSE" == "404" ]]; then
+              echo "⚠️  JUnit report not found for session $SESSION_ID (404). Skipping."
+              rm -f "$REPORT_FILE"
             else
-              echo "✅ No failures in session $SESSION_ID"
-            fi
-          done
+              echo "❌ Unexpected error while fetching report for session $SESSION_ID (HTTP $HTTP_RESPONSE)"
+              exit 1
+          fi
 
           echo ""
           echo "📦 All JUnit XML reports saved in ./junit_reports"
