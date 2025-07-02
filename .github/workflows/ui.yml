@@ -19,7 +19,8 @@ jobs:
     env:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
       BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-      BROWSERSTACK_DEVICES: "Google Pixel 9 Pro XL-15.0"
+      BROWSERSTACK_DEVICES: |
+        - Google Pixel 9 Pro XL-15.0
 
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +65,7 @@ jobs:
         id: start_run
         run: |
           # Convert device list to JSON array
-          DEVICE_JSON=$(jq -R -s -c 'split(",")' <<< "$BROWSERSTACK_DEVICES")
+          DEVICE_JSON=$(echo "$BROWSERSTACK_DEVICES" | jq -R -c 'split("\n") | map(select(length > 0) | ltrimstr("- ") | rtrimstr(" "))')
 
           # Generate dynamic identifiers
           BRANCH_NAME="${GITHUB_REF_NAME:-unknown-branch}"
@@ -93,7 +94,7 @@ jobs:
               project: $project,
               o11y_buildTags: [$tag],
               o11y_ciInfo: {
-                name: "GitHub Actions",
+                name: "Catroid UI Test Pipeline",
                 build_url: $build_url,
                 job_name: $job_name,
                 build_number: $build_number
@@ -104,6 +105,33 @@ jobs:
 
           echo "📝 BrowserStack run payload:"
           cat run_payload.json
+          
+          while true; do
+            echo "🔁 Attempting to start test run..."
+      
+            RESPONSE=$(curl -s -w "\n%{http_code}" -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
+            -X POST "https://api-cloud.browserstack.com/app-automate/espresso/v2/build" \
+            -H "Content-Type: application/json" \
+            -d @run_payload.json)
+      
+            BODY=$(head -n -1 <<< "$RESPONSE")
+            STATUS_CODE=$(tail -n1 <<< "$RESPONSE")
+      
+            echo "$BODY" | tee run_response.json
+      
+            if [[ "$STATUS_CODE" == "200" ]]; then
+              echo "✅ Test run started successfully."
+              echo "RUN_ID=$(jq -r '.build_id' <<< "$BODY")" >> $GITHUB_ENV
+              break
+            elif [[ "$STATUS_CODE" == "422" && "$BODY" == *"BROWSERSTACK_ALL_PARALLELS_IN_USE"* ]]; then
+              echo "⚠️ All parallel tests in use. Waiting $RETRY_INTERVAL seconds before retry..."
+              sleep $RETRY_INTERVAL
+            else
+              echo "❌ Unexpected response from BrowserStack (status: $STATUS_CODE)."
+              echo "Message: $(jq -r '.message // "No message found"' <<< "$BODY")"
+              exit 1
+            fi
+          done
 
           RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
             -X POST "https://api-cloud.browserstack.com/app-automate/espresso/v2/build" \
