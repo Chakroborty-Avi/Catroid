@@ -20,7 +20,7 @@ jobs:
       BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
       BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
       BROWSERSTACK_DEVICES: |
-        - Google Pixel 9 Pro XL-15.0
+        Google Pixel 9 Pro XL-15.0
 
     steps:
       - uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
         id: start_run
         run: |
           # Convert device list to JSON array
-          DEVICE_JSON=$(echo "$BROWSERSTACK_DEVICES" | jq -R -c 'split("\n") | map(select(length > 0) | ltrimstr("- ") | rtrimstr(" "))')
+          DEVICE_JSON=$(echo "${BROWSERSTACK_DEVICES}" | jq -R -s -c 'split("\n") | map(select(length > 0))')
 
           # Generate dynamic identifiers
           BRANCH_NAME="${GITHUB_REF_NAME:-unknown-branch}"
@@ -105,20 +105,20 @@ jobs:
 
           echo "📝 BrowserStack run payload:"
           cat run_payload.json
-          
+
           while true; do
             echo "🔁 Attempting to start test run..."
-      
+
             RESPONSE=$(curl -s -w "\n%{http_code}" -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
             -X POST "https://api-cloud.browserstack.com/app-automate/espresso/v2/build" \
             -H "Content-Type: application/json" \
             -d @run_payload.json)
-      
+
             BODY=$(head -n -1 <<< "$RESPONSE")
             STATUS_CODE=$(tail -n1 <<< "$RESPONSE")
-      
+
             echo "$BODY" | tee run_response.json
-      
+
             if [[ "$STATUS_CODE" == "200" ]]; then
               echo "✅ Test run started successfully."
               echo "RUN_ID=$(jq -r '.build_id' <<< "$BODY")" >> $GITHUB_ENV
@@ -178,7 +178,7 @@ jobs:
 
           echo ""
           echo "📊 Final session summary:"
-          
+
           # Print high-level counts
           TOTAL_SESSIONS=$(jq '[.devices[].sessions[]] | length' < poll_result.json)
           TOTAL_TESTS=$(jq '[.devices[].sessions[].testcases.count] | add' < poll_result.json)
@@ -187,7 +187,7 @@ jobs:
           TOTAL_SKIPPED=$(jq '[.devices[].sessions[].testcases.status.skipped] | add' < poll_result.json)
           TOTAL_TIMEDOUT=$(jq '[.devices[].sessions[].testcases.status.timedout] | add' < poll_result.json)
           TOTAL_ERRORS=$(jq '[.devices[].sessions[].testcases.status.error] | add' < poll_result.json)
-        
+
           echo "📦 Sessions: $TOTAL_SESSIONS"
           echo "🧪 Total tests: $TOTAL_TESTS"
           echo "✅ Passed: $TOTAL_PASSED"
@@ -196,7 +196,7 @@ jobs:
           echo "⏱️ Timed out: $TOTAL_TIMEDOUT"
           echo "⚠️ Errors: $TOTAL_ERRORS"
           echo ""
-          
+
           # Detailed shard/session view
           jq -r '
           .devices[].sessions[] |
