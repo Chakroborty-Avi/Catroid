@@ -50,7 +50,7 @@ jobs:
             -F "file=@catroid/build/outputs/apk/catroid/debug/catroid-catroid-debug.apk")
 
           echo "$RESPONSE" | tee app_upload_response.json
-          echo "APP_URL=$(jq -r '.app_url' <<< "$RESPONSE")" >> $GITHUB_ENV
+          echo "BROWSERSTACK_APP_URL=$(jq -r '.app_url' <<< "$RESPONSE")" >> $GITHUB_ENV
 
       - name: Upload Testsuite to BrowserStack
         id: upload_test
@@ -60,7 +60,7 @@ jobs:
             -F "file=@catroid/build/outputs/apk/androidTest/catroid/debug/catroid-catroid-debug-androidTest.apk")
 
           echo "$RESPONSE" | tee test_upload_response.json
-          echo "TEST_URL=$(jq -r '.test_suite_url' <<< "$RESPONSE")" >> $GITHUB_ENV
+          echo "BROWSERSTACK_TEST_URL=$(jq -r '.test_suite_url' <<< "$RESPONSE")" >> $GITHUB_ENV
 
       - name: Start BrowserStack Test Run
         id: start_run
@@ -76,8 +76,8 @@ jobs:
           PROJECT_NAME="Catroid"
 
           jq -n \
-            --arg app "$APP_URL" \
-            --arg testSuite "$TEST_URL" \
+            --arg app "$BROWSERSTACK_APP_URL" \
+            --arg testSuite "$BROWSERSTACK_TEST_URL" \
             --argjson devices "$DEVICE_JSON" \
             --arg build_url "$BUILD_URL" \
             --arg job_name "${{ github.job }}" \
@@ -122,7 +122,7 @@ jobs:
 
             if [[ "$STATUS_CODE" == "200" ]]; then
               echo "✅ Test run started successfully."
-              echo "RUN_ID=$(jq -r '.build_id' <<< "$BODY")" >> $GITHUB_ENV
+              echo "BROWSERSTACK_BUILD_ID=$(jq -r '.build_id' <<< "$BODY")" >> $GITHUB_ENV
               break
             elif [[ "$STATUS_CODE" == "422" && "$BODY" == *"BROWSERSTACK_ALL_PARALLELS_IN_USE"* ]]; then
               echo "⚠️ All parallel tests in use. Waiting $RETRY_INTERVAL seconds before retry..."
@@ -136,9 +136,9 @@ jobs:
 
       - name: Poll and Collect Results
         run: |
-          echo "📡 Polling BrowserStack for build ID: $RUN_ID"
-          DASHBOARD_URL="https://app-automate.browserstack.com/dashboard/v2/builds/$RUN_ID"
-          echo "🔗 Dashboard: $DASHBOARD_URL"
+          echo "📡 Polling BrowserStack for build ID: $BROWSERSTACK_BUILD_ID"
+          BROWSERSTACK_RUN_URL="https://app-automate.browserstack.com/dashboard/v2/builds/$BROWSERSTACK_BUILD_ID"
+          echo "🔗 Dashboard: $BROWSERSTACK_RUN_URL"
           echo ""
 
           # Terminal states according to API
@@ -146,13 +146,13 @@ jobs:
 
           while true; do
             RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
-              "https://api-cloud.browserstack.com/app-automate/espresso/v2/builds/$RUN_ID")
+              "https://api-cloud.browserstack.com/app-automate/espresso/v2/builds/$BROWSERSTACK_BUILD_ID")
 
             echo "$RESPONSE" > poll_result.json
             STATUS=$(jq -r '.status' < poll_result.json)
 
             echo "🕒 Current Status: $STATUS"
-            echo "🔗 $DASHBOARD_URL"
+            echo "🔗 $BROWSERSTACK_RUN_URL"
             echo ""
 
             jq -r '
@@ -201,35 +201,36 @@ jobs:
           echo "📥 Fetching JUnit XML reports..."
           mkdir -p junit_reports
 
-          SESSION_IDS=$(jq -r '.devices[].sessions[].id' < poll_result.json)
+          BROWSERSTACK_SESSION_IDS=$(jq -r '.devices[].sessions[].id' < poll_result.json)
           FAILED_COUNT=0
 
-          for SESSION_ID in $SESSION_IDS; do
-            REPORT_URL="https://api-cloud.browserstack.com/app-automate/espresso/v2/builds/$RUN_ID/sessions/$SESSION_ID/report"
-            REPORT_FILE="junit_reports/session_${SESSION_ID}.xml"
+          for BROWSERSTACK_SESSION_ID in $BROWSERSTACK_SESSION_IDS; do
+            REPORT_URL="https://api-cloud.browserstack.com/app-automate/espresso/v2/builds/$BROWSERSTACK_BUILD_ID/sessions/$BROWSERSTACK_SESSION_ID/report"
+            REPORT_FILE="junit_reports/session_${BROWSERSTACK_SESSION_ID}.xml"
 
-            echo "➡️  Downloading report for session: $SESSION_ID"
+            echo "➡️  Downloading report for session: $BROWSERSTACK_SESSION_ID"
             HTTP_RESPONSE=$(curl -s -w "%{http_code}" -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" -X GET "$REPORT_URL" -o "$REPORT_FILE")
 
             if [[ "$HTTP_RESPONSE" == "200" ]]; then
-              if grep -q "<failure>" "$REPORT_FILE"; then
-                echo "❌ Test failures detected in session $SESSION_ID"
-                FAILED_COUNT=$((FAILED_COUNT + 1))
-              else
-                echo "✅ No failures in session $SESSION_ID"
-              fi
+                if grep -q "<failure>" "$REPORT_FILE"; then
+                  echo "❌ Test failures detected in session $BROWSERSTACK_SESSION_ID"
+                  FAILED_COUNT=$((FAILED_COUNT + 1))
+                else
+                  echo "✅ No failures in session $BROWSERSTACK_SESSION_ID"
+                fi
             elif [[ "$HTTP_RESPONSE" == "404" ]]; then
-              echo "⚠️  JUnit report not found for session $SESSION_ID (404). Skipping."
-              rm -f "$REPORT_FILE"
+                echo "⚠️  JUnit report not found for session $BROWSERSTACK_SESSION_ID (404). Skipping."
+                rm -f "$REPORT_FILE"
             else
-              echo "❌ Unexpected error while fetching report for session $SESSION_ID (HTTP $HTTP_RESPONSE)"
-              exit 1
-          fi
+                echo "❌ Unexpected error while fetching report for session $BROWSERSTACK_SESSION_ID (HTTP $HTTP_RESPONSE)"
+                exit 1
+            fi
+          done
 
           echo ""
           echo "📦 All JUnit XML reports saved in ./junit_reports"
           echo "❌ Failed sessions: $FAILED_COUNT"
-          echo "🔗 Full report: $DASHBOARD_URL"
+          echo "🔗 Full report: $BROWSERSTACK_RUN_URL"
 
           if [[ "$FAILED_COUNT" -gt 0 ]]; then
             echo "🔥 Failing pipeline due to test failures"
