@@ -1,4 +1,4 @@
-name: Instrumented tests
+name: Catroid UI Test Pipeline
 
 on:
   push:
@@ -36,14 +36,17 @@ jobs:
       - name: Build APKs
         run: ./gradlew -Pindependent='#${{ github.run_number }} ${{ github.ref_name }}' assembleAndroidTest assembleDebug
 
+      - name: Debug APK paths
+        run: find . -name "*.apk"
+
       # see https://www.browserstack.com/docs/app-automate/espresso/getting-started
       - name: Upload App APK to BrowserStack
         id: upload_app
         run: |
           RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
             -X POST "https://api-cloud.browserstack.com/app-automate/espresso/v2/app" \
-            -F "file=@app/build/outputs/apk/debug/app-debug.apk")
-          
+            -F "file=@catroid/build/outputs/apk/catroid/debug/catroid-catroid-debug.apk")
+
           echo "$RESPONSE" | tee app_upload_response.json
           echo "APP_URL=$(jq -r '.app_url' <<< "$RESPONSE")" >> $GITHUB_ENV
 
@@ -52,8 +55,8 @@ jobs:
         run: |
           RESPONSE=$(curl -s -u "$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_KEY" \
             -X POST "https://api-cloud.browserstack.com/app-automate/espresso/v2/test-suite" \
-            -F "file=@app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk")
-          
+            -F "file=@catroid/build/outputs/apk/androidTest/catroid/debug/catroid-catroid-debug-androidTest.apk")
+
           echo "$RESPONSE" | tee test_upload_response.json
           echo "TEST_URL=$(jq -r '.test_suite_url' <<< "$RESPONSE")" >> $GITHUB_ENV
 
