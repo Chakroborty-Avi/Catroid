@@ -23,7 +23,7 @@ name: Synchronize Crowdin
 #
 on:
   schedule:
-   - cron:  '0 0 * * *'
+  - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -45,15 +45,21 @@ jobs:
     name: Synchronize Crowdin Translations
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - uses: crowdin/github-action@v1.7.1
-        with:
-          upload_sources: true
-          upload_translations: false
-          download_translations: true
-          config: 'crowdin.yml'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+    - uses: clonedSemicolon/setup-strace@v13
+    - uses: crowdin/github-action@v1.7.1
+      with:
+        upload_sources: true
+        upload_translations: false
+        download_translations: true
+        config: 'crowdin.yml'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+        CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+    - name: Upload strace artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: strace-logs-${{ github.job }}-${{ matrix.flavor || 'lint' }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ strategy.job-index || 0 }}
+        path: /home/runner/strace_logs/
